@@ -51,8 +51,10 @@ class App extends React.Component {
                 </div>
             </div>
 
-            <div style={{marginTop: 20}} className="ui grid three stackable cards container container-result">
-                <SearchResult data={this.state.images} />
+            <div style={{marginTop: 20}} className="ui grid container container-result">
+                <div className="container-grid">
+                    <SearchResult data={this.state.images} />
+                </div>
             </div>
             </>
         )

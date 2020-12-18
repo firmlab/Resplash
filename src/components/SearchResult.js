@@ -1,15 +1,12 @@
 import React from 'react'
+import ImageCard from './ImageCard'
 
 const SearchResult = props => {
 
     return (
          props.data.map((d, index) => {
             return (
-                <a key={`image-${d.id}`} className="ui raised card" rel="noreferrer" target="_blank" href={d.links.download}>
-                    <div className="image">
-                        <img alt={d.alt_description} src={d.urls.small} />
-                    </div>
-                </a>
+                <ImageCard key={`image-list-${d.id}`} image={d} />
             )
         })
     )
