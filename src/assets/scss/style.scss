@@ -8,6 +8,7 @@ body {
         background: rgb(0,0,0);
         background: linear-gradient(90deg, rgba(0,0,0,0.42620798319327735) 0%, rgba(0,0,0,0.8855917366946778) 42%, rgba(0,0,0,0.6446953781512605) 100%);
         position: relative;
+        z-index: 2;
 
         .column {
             z-index: 2;
@@ -24,7 +25,7 @@ body {
             background-size: cover;
             background-position: center center;
             opacity: 0.8;
-            z-index: 1;
+            z-index: -1;
         }
     }
 }

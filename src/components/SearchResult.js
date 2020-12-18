@@ -1,27 +1,22 @@
 import React from 'react'
 
-class SearchResult extends React.Component {
+const SearchResult = props => {
 
-    render() {
-        return (
-            <div className="ui raised card">
-                <div className="content">
-                    <div className="header">Cute Dog</div>
-                    <div className="meta">
-                    <span className="category">Animals</span>
+    return (
+         props.data.map((d, index) => {
+            return (
+                <a key={`image-${d.id}`} className="ui raised card" rel="noreferrer" target="_blank" href={d.links.download}>
+                    <div className="image">
+                        <img alt={d.alt_description} src={d.urls.small} />
                     </div>
-                    <div className="description">
-                    <p></p>
-                    </div>
-                </div>
-                <div className="extra content">
-                    <div className="right floated author">
-                        <img alt="" className="ui avatar image" src="https://i.pravatar.cc/300" /> Matt
-                    </div>
-                </div>
-            </div>
-        )
-    }
+                </a>
+            )
+        })
+    )
+}
+
+SearchResult.defaultProps = {
+    data: []
 }
 
 export default SearchResult

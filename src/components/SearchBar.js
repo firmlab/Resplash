@@ -1,29 +1,31 @@
 import React from 'react'
 
+import {debounce} from 'lodash'
+
 class SearchBar extends React.Component {
 
-    state = { term: '' }
-    
+    constructor(props) {
+        super(props)
+
+        this.state = { term: '' }
+
+        this.changeSearch = debounce(this.props.onSubmit, 500)
+    }
+
     onInputChange = (e) => {
-        this.setState({ term: e.target.value })
+        this.setState({ term: e.target.value }, () => {
+            this.changeSearch(e.target.value)
+        })
     }
 
-    onFormSubmit = (e) => {
-        e.preventDefault();
-
-        this.props.onSubmit(this.state.term)
-    }
-    
     render() {
         return (
             <div>
-                <form onSubmit={this.onFormSubmit}>
-                    <div className={`ui icon input fluid ${this.props.searching ? 'loading' : ''}`}>
-                        {/* <input type="text" placeholder="Search..." value={this.state.term} onChange={this.onInputChange} /> */}
-                        <input type="text" placeholder="Search..." value={this.state.term} onChange={(e) => this.setState({ term: e.target.value }) } />
-                        <i className="search icon"></i>
-                    </div>
-                </form>
+                <div className={`ui icon input fluid ${this.props.searching ? 'loading' : ''}`}>
+                    {/* <input type="text" placeholder="Search..." value={this.state.term} onChange={this.onInputChange} /> */}
+                    <input type="text" placeholder="Search..." value={this.state.term} onChange={this.onInputChange} />
+                    <i className="search icon"></i>
+                </div>
             </div>
         )
     }
