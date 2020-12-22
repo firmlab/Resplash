@@ -13,7 +13,7 @@ export default function ImageCard(props) {
             const spans = Math.ceil(height / 10)
             
             setStateSpans(spans)
-        }, 10)
+        }, 500)
     }
 
     useEffect(() => {
