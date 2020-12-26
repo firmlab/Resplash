@@ -33,7 +33,7 @@ export default function Modal(props) {
                             {description && <div className="ui header">{description}</div>}
                             <p>{alt_description}</p>
 
-                            {tags.map((d, index) => {
+                            {tags && tags.map((d, index) => {
                                 return (
                                     <span key={`label-${index}`} style={index === 0 ? {margin: 0} : {}} className="ui basic label">{d.title}</span>
                                 )
