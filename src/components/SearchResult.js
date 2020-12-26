@@ -1,12 +1,12 @@
 import React from 'react'
 import ImageCard from './ImageCard'
 
-const SearchResult = props => {
+const SearchResult = (props) => {
 
     return (
          props.data.map((d, index) => {
             return (
-                <ImageCard key={`image-list-${d.id}`} image={d} />
+                <ImageCard onSelectedImage={(img) => { props.onSelectedImage(img) }} key={`image-list-${d.id}`} image={d} />
             )
         })
     )

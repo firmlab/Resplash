@@ -9,11 +9,18 @@ export default function ImageCard(props) {
     const setSpans = () => {
 
         setTimeout(function() {
-            const height = imgRef.current.clientHeight
-            const spans = Math.ceil(height / 10)
-            
-            setStateSpans(spans)
+            if(imgRef.current) {
+                const height = imgRef.current.clientHeight
+                const spans = Math.ceil(height / 10)
+                
+                setStateSpans(spans)
+            }
         }, 500)
+    }
+
+    const handleClick = (e) => {
+        e.preventDefault()
+        props.onSelectedImage(props.image)
     }
 
     useEffect(() => {
@@ -21,7 +28,7 @@ export default function ImageCard(props) {
     }, [])
 
     return (
-        <a style={{gridRowEnd: `span ${stateSpans}`}} className="ui raised card" rel="noreferrer" target="_blank" href={links.download}>
+        <a onClick={handleClick} style={{gridRowEnd: `span ${stateSpans}`}} className="ui raised card" rel="noreferrer" href={links.download}>
             <div className="image">
                 <img ref={imgRef} alt={alt_description} src={urls.small} />
             </div>

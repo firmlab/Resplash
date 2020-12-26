@@ -6,10 +6,11 @@ import unsplash from '../api/unsplash'
 
 import SearchResult from './SearchResult'
 import SearchBar from './SearchBar'
+import Modal from './Modal'
 
 class App extends React.Component {
 
-    state = {loaded: true, searching: false, images: []}
+    state = {searching: false, images: [], selectedImage: null}
     
      onSearchSubmit = async (term) => {
         // console.log(term)
@@ -23,20 +24,23 @@ class App extends React.Component {
     }
 
     componentDidMount = () => {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                this.setState({loaded: true})
-            }, 500)
-        })
+        const getPhotos = async () => {
+            const response = await unsplash.get('/photos')
+            this.setState({images: response.data})
+        }
+
+        getPhotos()
     }
 
+    handleModalToggleOff = (e) => {
+        if(e.target.matches('.dimmer')) {
+            this.setState({selectedImage: null})
+        }
+    }
 
     render() {
         return (
             <>
-            <div className={`ui inverted dimmer ${this.state.loaded ? '' : 'active'}`}>
-                <div className="ui text loader">Loading...</div>
-            </div>
             <div className="main-grid">
                 <div className="search-wrapper">
                     <div className="ui three centered column grid container">
@@ -53,9 +57,11 @@ class App extends React.Component {
 
             <div style={{marginTop: 20}} className="ui grid container container-result">
                 <div className="container-grid">
-                    <SearchResult data={this.state.images} />
+                    <SearchResult onSelectedImage={(img) => this.setState({selectedImage: img})} data={this.state.images} />
                 </div>
             </div>
+
+            { this.state.selectedImage && <Modal onToggleOff={this.handleModalToggleOff} image={this.state.selectedImage} /> }
             </>
         )
     }
